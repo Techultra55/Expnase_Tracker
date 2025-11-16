@@ -17,10 +17,10 @@ const Input = (props) => {
 
         <input
           className='w-full bg-transparent outline-none'
-          type={props.type === 'password' ? showPassword ? 'text' : 'password' : props.type} 
+          type={props.type == 'password' ? showPassword ? 'text' : 'password' : props.type} 
           placeholder={props.placeholder}
           value={props.value}
-          onChange={(e) => props.onChange(e.target.value)} 
+          onChange={(e) => props.onChange(e)} 
         />
 
         {props.type === "password" && ( 

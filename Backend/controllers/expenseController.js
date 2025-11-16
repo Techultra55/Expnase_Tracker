@@ -55,24 +55,24 @@ exports.downloadExpenseExcel = async (req, res) => {
     const userId = req.user.id;
 
     try {
-        const expense = await Expense.find({ userId }).sort({ data: -1 });
+        const expense = await Expense.find({ userId }).sort({ date: -1 });
 
         // Prepare data for excel
         const data = expense.map((e) => ({
-            Source: e.source,
+            Category: e.category,
             Amount: e.amount,
             Date: e.date
         }));
 
         // Create workbook and worksheet
         const wb = xlsx.utils.book_new();
-        const ws = xlsx.utils.json_to_sheet(data);
+        const ws = xlsx.utils.json_to_sheet(data, { header: ["Category", "Amount", "Date"] });
         xlsx.utils.book_append_sheet(wb, ws, "Expense");
 
         // Write workbook to buffer
-        xlsx.writeFile(wb, 'expense.xlsx');
-
-        res.download('expense.xlsx');
+        const buffer = xlsx.write(wb, { type: 'buffer', bookType: 'xlsx' });
+        res.setHeader('Content-Disposition', 'attachment; filename="expense.xlsx"');
+        res.send(buffer);
 
     } catch (err) {
         res.status(500).json({ message: "Server error" });

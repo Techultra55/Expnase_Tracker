@@ -78,7 +78,7 @@ const Home = () => {
           <InfoCard
             icon={<LuHandCoins />}
             label="Total Expenses"
-            value={addThousandsSeparator(dashboardData?.totalExpense || 0)}
+            value={addThousandsSeparator(dashboardData?.totalExpenses || 0)}
             color="bg-red-500"
           />
 
@@ -87,7 +87,7 @@ const Home = () => {
 
         <div className='grid grid-col-1 gap-6 md:grid-cols-2 mt-6'>
           <RecentTransactions
-            transactions = {dashboardData?.recentTransactions}
+            transactions={dashboardData?.recentTransactions}
             onSeeMore={() => navigate('/expense')}
           />
 
@@ -95,26 +95,28 @@ const Home = () => {
           <FinanceOverview
             totalBalance={dashboardData?.totalBalance || 0}
             totalIncome={dashboardData?.totalIncome || 0}
-            totalExpense={dashboardData?.totalExpense || 0}
+            totalExpense={dashboardData?.totalExpenses || 0}
           />
 
+
+
           <ExpenseTransactions
-            transactions={dashboardData?.last30DaysExpenses?.transactions || []}
+            transactions={dashboardData?.last30daysExpenses?.transactions || []}
             onSeeMore={() => navigate('/expense')}
           />
 
           <Last30DaysExpenses
-            data={dashboardData?.last30DaysExpenses?.transactions || []}
+            data={dashboardData?.last30daysExpenses?.transactions || []}
           />
 
           <RecentIncomewithChart
 
-            data={dashboardData?.last60DaysIncome?.transactions?.slice(0, 4) || []}
+            data={dashboardData?.last60daysIncome?.transactions?.slice(0,5) || []}
             totalIncome={dashboardData?.totalIncome || 0}
           />
 
           <RecentIncome
-            transactions={dashboardData?.last60DaysIncome?.transactions || []}
+            transactions={dashboardData?.last60daysIncome?.transactions || []}
             onSeeMore={() => navigate('/income')}
           />
 
@@ -122,7 +124,7 @@ const Home = () => {
       </div>
     </DashboardLayout>
 
- 
+
   );
 };
 

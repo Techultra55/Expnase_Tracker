@@ -31,12 +31,13 @@ export const addThousandsSeparator = (num) => {
 
 
 export const prepareExpenseBarChartData = (data = []) => {
-    const charData = data.map((e)=>({
-        category: e?.category,
+    const chartData = data.map((e)=>({
         amount: e?.amount,
+         category: e?.category,
+        
     }));
 
-    return charData;
+    return chartData;
 }
 
 export const prepareIncomeBarChartData = (data = []) => {
@@ -46,6 +47,18 @@ export const prepareIncomeBarChartData = (data = []) => {
         month:moment(e?.date).format("Do MMM"),
         amount: e?.amount,
         source: e?.source,
+    }));
+
+    return chartData;
+}
+
+export const prepareExpenseLineChartData = (data = []) => {
+    const sortedData = [...data].sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    const chartData = sortedData.map((e) => ({
+        month: moment(e?.date).format("Do MMM"),
+        amount: e?.amount,
+        category: e?.category,
     }));
 
     return chartData;

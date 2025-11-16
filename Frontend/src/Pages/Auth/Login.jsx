@@ -59,12 +59,12 @@ const Login = () => {
     }
   }
 
-  const handleEmail = (value) => {
-    setEmail(value)
+  const handleEmail = (e) => {
+    setEmail(e.target.value)
   }
 
-  const handlePassword = (value) => {
-    setPassword(value)
+  const handlePassword = (e) => {
+    setPassword(e.target.value)
   }
 
 

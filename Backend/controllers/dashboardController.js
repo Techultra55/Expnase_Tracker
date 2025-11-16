@@ -46,20 +46,20 @@ exports.getDashboardData = async (req, res) => {
         );
 
         // Fetch last 5 transactions (income + expense)
-        const lastIncomeTxns = await Income.find({ userId }).sort({ date: -1 }).limit(5);
-        const lastExpenseTxns = await Expense.find({ userId }).sort({ date: -1 }).limit(5);
+        const lastIncomeTxns = (await Income.find({ userId }).sort({ date: -1 }).limit(5));
+        const lastExpenseTxns = (await Expense.find({ userId }).sort({ date: -1 }).limit(5));
 
         const lastTransactions = [
             ...lastIncomeTxns.map(
                 (txn) => ({
                     ...txn.toObject(),
-                    Type: "income",
+                    type: "income",
                 })
             ),
             ...lastExpenseTxns.map(
                 (txn) => ({
                     ...txn.toObject(),
-                    Type: "expense",
+                    type: "expense",
                 })
             ),
         ].sort((a, b) => b.date - a.date); // sort latest first
@@ -78,7 +78,7 @@ exports.getDashboardData = async (req, res) => {
                 total: incomeLast60days,
                 transactions: last60daysIncomeTransactions,
             },
-            recentTransactions: lastTransactions,
+           recentTransactions: lastTransactions,
         });
 
     } catch (err) {

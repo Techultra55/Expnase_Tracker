@@ -6,8 +6,15 @@ const AuthLayout = (props) => {
   return (
     <div className='flex'>
 
-      <div className='w-screen h-screen md:w-[60rem] px-12 pt-8 pb-12'>
-        <h2 className='text-lg font-medium text-black'>Expense tracker</h2>
+      <div className='flex gap-1 w-screen h-screen md:w-[60rem] px-12 pt-8 pb-12'>
+       
+            <img
+                src="../../../public/spendify.png"
+                alt="logo"
+                className='w-8 h-8'
+            />
+
+            <h2 className='text-lg font-medium text-black py-0.5'>SPENDIFY</h2>
         {props.children}
       </div>
 

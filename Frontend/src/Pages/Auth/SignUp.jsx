@@ -75,16 +75,16 @@ const SignUp = () => {
     }
   }
 
-  const handleEmail = (value) => {
-    setEmail(value)
+  const handleEmail = (e) => {
+    setEmail(e.target.value)
   }
 
-  const handlePassword = (value) => {
-    setPassword(value)
+  const handlePassword = (e) => {
+    setPassword(e.target.value)
   }
 
-  const handleFullName = (value) => {
-    setFullName(value)
+  const handleFullName = (e) => {
+    setFullName(e.target.value)
 
   }
 

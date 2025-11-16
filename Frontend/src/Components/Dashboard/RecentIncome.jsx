@@ -15,7 +15,7 @@ const RecentIncome = (props) => {
             </div>
 
             <div className='mt-6'>
-              {props.transactions?.slice(0,5)?.map((e) =>{
+              {props.transactions?.slice(0,5)?.map((e) =>(
                   <TransactionInfoCard 
                     key={e._id}
                     title={e.source}
@@ -25,7 +25,7 @@ const RecentIncome = (props) => {
                     type='income'
                     hideDeleteBtn
                   />
-              })}
+              ))}
             </div>
         </div>
         

@@ -1,58 +1,88 @@
-import React from 'react'
-import { BarChart, Bar, XAxis, YAxis, CartesianAxis, Tooltip, Legend, ResponsiveContainer, Cell, CartesianGrid } from 'recharts'
+import React from 'react';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const CustomBarChart = (props) => {
-
-  //Function to alternate colors
-  const getBarColor = (e) => {
-    return e % 2 === 0 ? '#875cf5' : '#cfbefb';
+  // Function to alternate colors, same as before.
+  const getBarColor = (index) => {
+    return index % 2 === 0 ? '#875cf5' : '#cfbefb';
   };
 
-  const CustomTooltip = ({ active, payload }) => {
+  const chartData = props.data || [];
 
-    if (active && payload && payload.length) {
-      return (
-        <div className='bg-white shadow-md rounded-lg p-2 border border-gray-300'>
-          <p className='text-xs font-semibold text-purple-800 mb-1'>{payload[0].payload.category}</p>
-          <p className='text-sm text-gray-600'>
-            Amount: <span className='text-sm font-medium text-gray-900'>${payload[0].payload.amount}</span>
-          </p>
-        </div>
-      );
-    };
+  const data = {
+    labels: chartData.map((d) => d.month || d.category), // Support for 'month' or 'category'
+    datasets: [
+      {
+        label: 'Amount',
+        data: chartData.map((d) => d.amount),
+        backgroundColor: chartData.map((e, i) => getBarColor(i)),
+        borderRadius: {
+          topLeft: 10,
+          topRight: 10,
+          bottomLeft: 0,
+          bottomRight: 0,
+        },
+        barThickness: 100,
+      },
+    ],
+  };
 
-    return null;
-
-  }
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false, // Hides the legend
+      },
+      tooltip: {
+        enabled: true,
+        backgroundColor: 'white',
+        titleColor: '#581c87', // purple-800
+        bodyColor: '#4b5563', // gray-600
+        borderColor: '#d1d5db', // gray-300
+        borderWidth: 1,
+        padding: 8,
+        callbacks: {
+          title: (context) => context[0].label,
+          label: (context) => `Amount: $${context.raw}`,
+        },
+      },
+    },
+    scales: {
+      x: {
+        grid: { display: false },
+        ticks: { color: '#555', font: { size: 12 } },
+      },
+      y: {
+        grid: { display: false },
+        ticks: { color: '#555', font: { size: 12 } },
+      },
+    },
+  };
 
   return (
-    <div className='bg-white mt-6'>
-      <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={props.data}>
-          <CartesianGrid stroke='none' />
-          <XAxis dataKey="month" tick={{ fontSize: 12, fill: '#8884d8' }} stroke='none' />
-          <YAxis tick={{ fontSize: 12, fill: '#555' }} stroke='none' />
-
-          <Tooltip content={CustomTooltip} />
-
-          <Bar
-            dataKey="amount"
-            fill="#FF8042"
-            radius={[10, 10, 0, 0]}
-            activeDot={{ r: 8, fill: 'yellow' }}
-            activeStyle={{ fill: 'green' }}
-          >
-            {props.data.map((e, i) => {
-              <Cell key={i} fill={getBarColor(i)} />
-            })}
-
-
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
+    <div className='bg-white mt-6' style={{ height: '400px' }}>
+      <Bar options={options} data={data} />
     </div>
-  )
-}
-
+  );
+};
 
 export default CustomBarChart;

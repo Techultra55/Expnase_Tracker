@@ -5,6 +5,9 @@ import moment from 'moment';
 
 
 const ExpenseTransactions = (props) => {
+
+  console.log(props);
+  
   return (
     <div className='card'>
       <div className='flex items-center justify-between'>
@@ -21,7 +24,7 @@ const ExpenseTransactions = (props) => {
         {props.transactions.slice(0, 5)?.map((e) => (
           <TransactionInfoCard 
            key = {e._id}
-           title = {e.title}
+           title = {e.category}
            icon = {e.icon}
            date = {moment(e.date).format(' Do MMM YYYY')}
            amount = {e.amount} 

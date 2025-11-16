@@ -36,7 +36,7 @@ const RecentIncomewithChart = (props) => {
 
 
             <CustomPieChart
-                data={props.data}
+                data={chartData}
                 label="Total income"
                 totalAmount={`$${props.totalIncome}`}
                 showTextAnchor
