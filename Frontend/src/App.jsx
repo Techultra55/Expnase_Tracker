@@ -27,8 +27,8 @@ const App = () => {
         </Router>
       </div>
 
-      <Toaster 
-        toastOptions={{ 
+      <Toaster
+        toastOptions={{
           className: '',
           style: { fontSize: '16px' }
         }}

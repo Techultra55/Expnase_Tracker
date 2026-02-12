@@ -26,7 +26,7 @@ export const useUserAuth = () => {
                 console.error("Error fetching user info:", error);
                 if (isMounted) {
                     clearUser();
-                    navigate("/login");
+                    navigate("/getStarted");
                 }
             }
         };
