@@ -73,7 +73,7 @@ const Login = () => {
       <div className='flex flex-col justify-center lg:w-[70%] h-3/4 md:h-full' >
         <h3 className='text-xl font-semibold text-black'>Welcome back</h3>
         <p className='text-xs text-slate-700 mt-[5px] mb-6'>
-          Please enter your details to log in
+          Please enter your details 
         </p>
 
         <form onSubmit={handleLogin}>
