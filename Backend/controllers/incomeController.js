@@ -1,5 +1,5 @@
 const xlsx = require('xlsx')
-const Income = require("../models/Income")
+const Income = require("../schemas/Income")
 
 //add Income source
 exports.addIncome = async (req, res) => {

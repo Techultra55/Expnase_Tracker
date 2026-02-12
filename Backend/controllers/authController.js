@@ -1,9 +1,9 @@
-const User = require('../models/User');
+const User = require('../schemas/User');
 const jwt = require('jsonwebtoken');
 
 //Generate JWT Token
 const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "2h" });
+    return jwt.sign({ id }, process.env.JWT_KEY, { expiresIn: "2h" });
 };
 
 
