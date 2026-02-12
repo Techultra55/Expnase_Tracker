@@ -20,6 +20,8 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+
+
   //Handle Login from submit
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -35,6 +37,7 @@ const Login = () => {
     }
 
     setError("");
+    
 
     //Login APi
     try {
@@ -77,6 +80,7 @@ const Login = () => {
         </p>
 
         <form onSubmit={handleLogin}>
+        
           <Input
             value={email}
             onChange={handleEmail}

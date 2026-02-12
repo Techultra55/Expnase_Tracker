@@ -1,5 +1,5 @@
-const Income = require('../models/Income');
-const Expense = require('../models/Expense');
+const Income = require('../schemas/Income');
+const Expense = require('../schemas/Expense');
 const { isValidObjectId, Types } = require('mongoose');
 
 //Dashboard Data
@@ -9,6 +9,13 @@ exports.getDashboardData = async (req, res) => {
         const userObjectId = new Types.ObjectId(String(userId));
 
         // Fetch total income and expenses
+        // This aggregation pipeline calculates the sum of all income amounts for the specified user.
+
+        /*$match: This stage filters the documents to only include those belonging to the current user.
+        $group: This stage groups the matched documents and calculates a sum of the amount field for all of them. */
+
+        // It first matches documents by `userId` and then groups them to calculate the total sum.
+
         const totalIncome = await Income.aggregate([
             { $match: { userId: userObjectId } },
             { $group: { _id: null, total: { $sum: '$amount' } } },
@@ -16,6 +23,8 @@ exports.getDashboardData = async (req, res) => {
 
         console.log("totalIncome", { totalIncome, userId: isValidObjectId(userId) });
 
+        // This aggregation pipeline calculates the sum of all expense amounts for the specified user.
+        // It works similarly to the total income aggregation.
         const totalExpense = await Expense.aggregate([
             { $match: { userId: userObjectId } },
             { $group: { _id: null, total: { $sum: '$amount' } } },
@@ -49,6 +58,12 @@ exports.getDashboardData = async (req, res) => {
         const lastIncomeTxns = (await Income.find({ userId }).sort({ date: -1 }).limit(5));
         const lastExpenseTxns = (await Expense.find({ userId }).sort({ date: -1 }).limit(5));
 
+        // Combine the last 5 income and expense transactions into a single array.
+        // The .map() function is used to iterate over each transaction array.
+        // For each transaction, it's converted to a plain object using .toObject()
+        // and a 'type' property ('income' or 'expense') is added.
+        // The spread syntax (...) is used to merge the two mapped arrays.
+        // Finally, the combined array is sorted by date in descending order to show the most recent transactions first.
         const lastTransactions = [
             ...lastIncomeTxns.map(
                 (txn) => ({
@@ -62,7 +77,7 @@ exports.getDashboardData = async (req, res) => {
                     type: "expense",
                 })
             ),
-        ].sort((a, b) => b.date - a.date); // sort latest first
+        ].sort((a, b) => b.date - a.date);
 
         // Final response
         res.json({
@@ -78,12 +93,12 @@ exports.getDashboardData = async (req, res) => {
                 total: incomeLast60days,
                 transactions: last60daysIncomeTransactions,
             },
-           recentTransactions: lastTransactions,
+            recentTransactions: lastTransactions,
         });
 
     } catch (err) {
         res.status(500).json({ message: "Server error", error: err });
 
-        }
-    
     }
+
+}

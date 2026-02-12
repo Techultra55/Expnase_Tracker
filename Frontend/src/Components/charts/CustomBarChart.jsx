@@ -1,3 +1,4 @@
+// Import necessary components and utilities from react-chartjs-2 library
 import React from 'react';
 import {
   Chart as ChartJS,
@@ -10,6 +11,7 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
+// Register all necessary chart.js modules
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -20,19 +22,21 @@ ChartJS.register(
 );
 
 const CustomBarChart = (props) => {
-  // Function to alternate colors, same as before.
+  // Function to alternate colors for bars
   const getBarColor = (index) => {
     return index % 2 === 0 ? '#875cf5' : '#cfbefb';
   };
 
+  // Get chart data from props or default to an empty array
   const chartData = props.data || [];
 
+  // Define the chart data structure
   const data = {
-    labels: chartData.map((d) => d.month || d.category), // Support for 'month' or 'category'
+    labels: chartData.map((e) => e.month || e.category), // Support for 'month' or 'category'
     datasets: [
       {
         label: 'Amount',
-        data: chartData.map((d) => d.amount),
+        data: chartData.map((e) => e.amount),
         backgroundColor: chartData.map((e, i) => getBarColor(i)),
         borderRadius: {
           topLeft: 10,
@@ -45,6 +49,7 @@ const CustomBarChart = (props) => {
     ],
   };
 
+  // Define chart options
   const options = {
     responsive: true,
     maintainAspectRatio: false,

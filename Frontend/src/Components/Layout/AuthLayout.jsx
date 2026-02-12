@@ -1,32 +1,29 @@
 import React from 'react'
-import Bar from '../../assets/Images/Bar.jpeg'
-import {LuTrendingUpDown} from 'react-icons/lu'
+import { LuTrendingUpDown } from 'react-icons/lu'
+import PixelBlast from './pixelBlast'
 
 const AuthLayout = (props) => {
   return (
     <div className='flex'>
 
       <div className='flex gap-1 w-screen h-screen md:w-[60rem] px-12 pt-8 pb-12'>
-       
-            <img
-                src="../../../public/spendify.png"
-                alt="logo"
-                className='w-8 h-8'
-            />
 
-            <h2 className='text-lg font-medium text-black py-0.5'>SPENDIFY</h2>
+        <img
+          src="../../../public/spendify.png"
+          alt="logo"
+          className='w-8 h-8'
+        />
+
+        <h2 className='text-lg font-medium text-black py-0.5'>SPENDIFY</h2>
         {props.children}
       </div>
 
-      <div className='hidden md:block w-[40vw] h-screen bg-violet-100 bg-auth-bg-img bg-cover bg-no-repeat bg-center overflow-hidden p-8 relative'>
+      
+      <div className='hidden md:block w-[40vw] h-screen bg-auth-bg-img bg-cover bg-no-repeat bg-center overflow-hidden p-8 relative'>
 
-        <div className='w-48 h-48 rounded-[40px] bg-purple-700 absolute -top-7 -left-5' />
-        <div className='w-48 h-56 rounded-[40px] border-[20px] border-fuchsia-700 absolute top-[70%] -right-10' />
-        <div className='w-48 h-48 rounded-[40px] bg-violet-600 absolute -bottom-7 -left-5' />
-
-        <div className='grid grid-cols-1 z-20'>
+         <div className='grid grid-cols-1 z-20'>
           <StatsInfoCard
-            icon={<LuTrendingUpDown/>}
+            icon={<LuTrendingUpDown />}
             label="Track your income and expanse"
             value="430,000"
             color="bg-blue-700"
@@ -34,7 +31,36 @@ const AuthLayout = (props) => {
         </div>
 
 
-        <img src={Bar} className='w-64 lg:w-[98%] absolute bottom-17 rounded-2xl shadow-lg shadow-blue-400/15' />
+              
+        <div className='w-48 h-48 rounded-[40px] bg-purple-700 absolute -top-7 -left-5' />
+       
+        <div className='w-48 h-56 rounded-[40px] border-[20px] border-fuchsia-700 absolute top-[70%] -right-10' />
+        
+        <div className='w-48 h-48 rounded-[40px] bg-violet-600 absolute -bottom-7 -left-5' />
+       
+           <PixelBlast
+          variant="squares"
+          pixelSize={6}
+          color="#B19EEF"
+          patternScale={3}
+          patternDensity={1.2}
+          pixelSizeJitter={2}
+          enableRipples
+          rippleSpeed={1}
+          rippleThickness={0.12}
+          rippleIntensityScale={1.5}
+          liquid
+          liquidStrength={0.12}
+          liquidRadius={1.2}
+          liquidWobbleSpeed={5}
+          speed={0.6}
+          edgeFade={0.25}
+          transparent
+        />
+
+ 
+
+     
 
       </div>
     </div>
